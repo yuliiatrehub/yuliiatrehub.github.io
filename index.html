@@ -13,48 +13,51 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* ===== Scroll Snapping on HTML level ===== */
   html {
-    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     background: #e9e7e1;
-    /* The Background Image stays fixed behind everything */
-    background-image: url('images/main.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Crucial: Image doesn't move */
     min-height: 100vh;
   }
 
-  /* ===== The Fixed Frame (White Block) ===== */
-  /* This sits behind the scrolling text but in front of the image */
+  /* Fixed Background */
+  .fixed-background-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url('images/main.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 1;
+  }
+
+  /* Fixed Frame (White Block) */
   .fixed-frame-container {
     position: fixed;
-    top: -38px;
-    left: 0;
-    width: 100%;
-    height: 110%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
-    pointer-events: none; /* Allows scrolling through the box */
+    z-index: 2;
+    pointer-events: none;
   }
 
   .frame {
     width: 52%;
     height: 82%;
+    max-width: 900px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.75); 
+    background: rgba(255, 255, 255, 0.75);
     box-shadow: 0 8px 50px rgba(0,0,0,0.13);
     position: relative;
-    margin-top: 0px;
+    transition: all 0.3s ease;
   }
 
-  /* Your Double Lines inside the fixed frame */
   .frame::before {
     content: "";
     position: absolute;
@@ -62,6 +65,7 @@
     border: 3px solid #2a2a2a;
     border-radius: 8px;
     opacity: 0.3;
+    z-index: 1;
   }
 
   .frame::after {
@@ -71,18 +75,35 @@
     border: 2px solid #2a2a2a;
     border-radius: 6px;
     opacity: 0.2;
+    z-index: 1;
   }
 
-  /* ===== Scrolling Content Wrappers ===== */
+  /* Main Scrolling Container */
+  .main-scroll-container {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+
+  .content-centerer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Scrolling Content Wrappers */
   .invitation-wrapper {
     width: 100%;
-    height: 100vh; /* Each section takes full screen height */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    z-index: 2; /* Sits on top of the fixed frame */
     scroll-snap-align: start;
+    position: relative;
   }
 
   .content {
@@ -90,60 +111,206 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px;
-    max-width: 500px; /* Ensures text stays within the white box */
+    padding: clamp(30px, 5vh, 60px) clamp(20px, 4vw, 40px);
+    width: 100%;
+    max-width: 480px;
   }
 
-  /* --- Your Existing Text Styles --- */
-  .save-monogram { font-family: 'Great Vibes', cursive; font-size: 82px; color: #b73100; margin-bottom: 0px; margin-left: -160px;}
-  .the-monogram { font-family: 'Great Vibes', cursive; font-size: 82px; color: #b73100; margin-bottom: 0px; margin-left: -30px; margin-top: -20px;}
-  .date-monogram { font-family: 'Great Vibes', cursive; font-size: 82px; color: #b73100; margin-bottom: 0px; margin-left: 100px; margin-top: -50px;}
-  .monogram { font-family: 'Great Vibes', cursive; font-size: 22px; color: #b73100; margin-bottom: 20px; }
-  .name { font-family: 'Great Vibes', cursive; font-size: 70px; color: #b73100; line-height: 0.9; }
-  .and-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 30px; color: #b73100; }
-  .pre-title { font-family: 'Playfair', sans-serif; font-size: 14px; text-transform: uppercase; color: #b73100; margin-top: 20px; line-height: 1.6; }
-  .date-label { font-family: 'Playfair', sans-serif; font-size: 18px; color: #b73100; display: flex; align-items: center; margin-top: 25px; }
-  .data-label-big { font-weight: 600; font-size: 45px; padding: 0 10px; margin: 0 15px; border-left: 2px solid #2a2a2a; border-right: 2px solid #2a2a2a; }
-  .closing { font-family: 'Great Vibes', cursive; font-size: 24px; color: #b73100; margin-top: 30px; }
+  /* ===== Fluid Typography — clamp(min, fluid, max) ===== */
 
-  /* Page 2 Specifics */
-  .section-title { font-family: 'Playfair', sans-serif; text-transform: uppercase; color: #b73100; font-size: 16px; margin-top: 40px; }
-  .section-body { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: #555; margin-top: 10px; line-height: 1.4; }
-
-  /* Responsive for mobile */
-  @media (max-width: 768px) {
-    .frame { width: 85%; height: 80%; }
-    .name { font-size: 50px; }
-    .data-label-big { font-size: 35px; }
+  .monogram-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
+
+  .monogram-line {
+    font-family: 'Great Vibes', cursive;
+    color: #b73100;
+  }
+
+  .save-monogram  { font-size: clamp(38px, 8vw, 82px); }
+  .the-monogram   { font-size: clamp(38px, 8vw, 82px); margin-top: clamp(-12px, -1.5vh, -3px); }
+  .date-monogram  { font-size: clamp(38px, 8vw, 82px); margin-top: clamp(-12px, -1.5vh, -3px); }
+
+  .monogram {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(17px, 2.5vw, 24px);
+    color: #b73100;
+    margin-bottom: 20px;
+  }
+
+  .name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(38px, 7vw, 70px);
+    color: #b73100;
+    line-height: 1;
+  }
+
+  .and-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(17px, 2.2vw, 28px);
+    color: #b73100;
+    margin: 4px 0;
+  }
+
+  .pre-title {
+    font-family: 'Playfair', sans-serif;
+    font-size: clamp(10px, 1.4vw, 13px);
+    text-transform: uppercase;
+    color: #b73100;
+    margin-top: clamp(15px, 2.5vh, 25px);
+    line-height: 1.6;
+    max-width: 85%;
+  }
+
+  .date-label {
+    font-family: 'Playfair', sans-serif;
+    font-size: clamp(12px, 1.6vw, 16px);
+    color: #b73100;
+    display: flex;
+    align-items: center;
+    margin-top: clamp(15px, 2.5vh, 25px);
+  }
+
+  .data-label-big {
+    font-weight: 600;
+    font-size: clamp(30px, 5.5vw, 55px);
+    padding: 0 clamp(6px, 1vw, 10px);
+    margin: 0 clamp(6px, 1vw, 10px);
+    border-left: 1px solid #2a2a2a;
+    border-right: 1px solid #2a2a2a;
+    color: #b73100;
+  }
+
+  .closing {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: #b73100;
+    margin-top: clamp(20px, 3vh, 30px);
+  }
+
+  /* Page 3 */
+  .section-title {
+    font-family: 'Playfair', sans-serif;
+    text-transform: uppercase;
+    color: #b73100;
+    font-size: clamp(11px, 1.4vw, 15px);
+    margin-top: clamp(20px, 3vh, 35px);
+    letter-spacing: 1px;
+  }
+
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(14px, 1.7vw, 17px);
+    color: #555;
+    margin-top: 8px;
+    line-height: 1.5;
+    max-width: 85%;
+  }
+
+  /* ===== Dot Navigation ===== */
+  .scroll-dots {
+    position: fixed;
+    right: clamp(8px, 2vw, 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(183, 49, 0, 0.25);
+    border: 1.5px solid rgba(183, 49, 0, 0.55);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    outline: none;
+  }
+
+  .dot:hover {
+    background: rgba(183, 49, 0, 0.45);
+    transform: scale(1.25);
+  }
+
+  .dot.active {
+    background: #b73100;
+    border-color: #b73100;
+    transform: scale(1.4);
+  }
+
+  /* ========================================= */
+  /* Responsive Fixes                          */
+  /* ========================================= */
+
+  /* Desktop */
+  @media (min-width: 1025px) {
+    .frame { width: 50%; height: 90%; }
+  }
+
+  /* Tablets Portrait */
+  @media (max-width: 1024px) and (min-width: 601px) {
+    .frame { width: 60%; height: 80%; }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .frame { width: 88%; height: 88%; }
+    .frame::before { inset: 10px; border-width: 2px; }
+    .frame::after  { inset: 15px; border-width: 1px; }
+  }
+
+  /* Very small mobile */
+  @media (max-width: 320px) {
+    .frame { width: 92%; height: 90%; }
+  }
+
 </style>
 </head>
 <body>
+
+  <div class="fixed-background-container"></div>
 
   <div class="fixed-frame-container">
     <div class="frame"></div>
   </div>
 
-  <div class="main-scroll-container">
+  <!-- Dot Navigation -->
+  <nav class="scroll-dots" aria-label="Навігація розділів">
+    <button class="dot active" data-index="0" aria-label="Розділ 1"></button>
+    <button class="dot"        data-index="1" aria-label="Розділ 2"></button>
+    <button class="dot"        data-index="2" aria-label="Розділ 3"></button>
+  </nav>
 
-    <section class="invitation-wrapper">
+  <div class="main-scroll-container" id="scroller">
+    <div class="content-centerer">
+
+    <section class="invitation-wrapper" data-section="0">
       <div class="content">
-        
-        <div class="save-monogram">Save</div>
-        <div class="the-monogram">the</div>
-        <div class="date-monogram">date</div>
-        
+        <div class="monogram-container">
+          <div class="save-monogram monogram-line">Save</div>
+          <div class="the-monogram monogram-line">the</div>
+          <div class="date-monogram monogram-line">date</div>
+        </div>
       </div>
     </section>
-    
-    
 
-    <section class="invitation-wrapper">
+    <section class="invitation-wrapper" data-section="1">
       <div class="content">
         <div class="monogram">Разом зі своїми родинами</div>
-        
-        <div style="margin-bottom: 40px;">
-          <svg width="150" height="12" viewBox="0 0 180 16" fill="none">
+
+        <div style="margin-bottom: 25px; opacity: 0.5;">
+          <svg width="120" height="10" viewBox="0 0 180 16" fill="none">
             <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
             <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
             <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
@@ -154,9 +321,7 @@
         <span class="and-text">та</span>
         <span class="name">Дмитро</span>
 
-        <p class="pre-title">З великим задоволенням запрошуємо вас<br>
-          завітати на наше весілля
-        </p>
+        <p class="pre-title">З великим задоволенням запрошуємо вас завітати на наше весілля</p>
 
         <div class="date-label">
           Неділя <span class="data-label-big">03</span> 05/2026
@@ -172,13 +337,13 @@
       </div>
     </section>
 
-    <section class="invitation-wrapper">
+    <section class="invitation-wrapper" data-section="2">
       <div class="content">
         <div class="monogram">Щоб свято було ідеальним</div>
 
         <div class="section-title">Дрес-код</div>
         <p class="section-body">
-          Ми хочемо, щоб цей день був комфортним для кожного. Суворого дрес-коду немає — головне, аби вам було зручно та святково. <br>
+          Ми хочемо, щоб цей день був комфортним для кожного. Суворого дрес-коду немає — головне, аби вам було зручно та святково.<br>
           Для дам чудово підійдуть сукні чи елегантні костюми, а для чоловіків — штани з рубашкою, піджак за бажанням.
         </p>
 
@@ -187,8 +352,8 @@
           Ми щиро вдячні за кожну увагу. Замість букетів будемо раді отримати щось корисне для нашого спільного дому або памʼятний подарунок, який зігріватиме серце. Найкращий же подарунок — ваш настрій та усмішки!
         </p>
 
-        <div style="margin-top: 50px;">
-          <svg width="150" height="12" viewBox="0 0 180 16" fill="none">
+        <div style="margin-top: clamp(20px, 4vh, 40px); opacity: 0.5;">
+          <svg width="120" height="10" viewBox="0 0 180 16" fill="none">
             <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
             <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
             <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
@@ -199,7 +364,39 @@
       </div>
     </section>
 
+    </div>
   </div>
+
+  <script>
+    const scroller = document.getElementById('scroller');
+    const sections = document.querySelectorAll('.invitation-wrapper');
+    const dots = document.querySelectorAll('.dot');
+
+    // Click dot → scroll to that section
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.index);
+        sections[idx].scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // IntersectionObserver inside #scroller
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = entry.target.dataset.section;
+          dots.forEach(d => d.classList.remove('active'));
+          const activeDot = document.querySelector(`.dot[data-index="${idx}"]`);
+          if (activeDot) activeDot.classList.add('active');
+        }
+      });
+    }, {
+      root: scroller,
+      threshold: 0.5
+    });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
 
 </body>
 </html>
