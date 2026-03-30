@@ -11,386 +11,184 @@
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@100;200;300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
-  @page { size: A4 portrait; margin: 0; }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ===== Scroll Snapping on HTML level ===== */
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
 
   body {
     background: #e9e7e1;
+    /* The Background Image stays fixed behind everything */
+    background-image: url('images/main.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Crucial: Image doesn't move */
+    min-height: 100vh;
+  }
+
+  /* ===== The Fixed Frame (White Block) ===== */
+  /* This sits behind the scrolling text but in front of the image */
+  .fixed-frame-container {
+    position: fixed;
+    top: -38px;
+    left: 0;
+    width: 100%;
+    height: 110%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 40px 20px;
+    align-items: center;
+    z-index: 1;
+    pointer-events: none; /* Allows scrolling through the box */
   }
 
-  /* ===== Main Wrapper with Background Image ===== */
-  .invitation-wrapper {
-    width: 210mm;
-    min-height: 297mm;
-    
-    /* Image is now the main background */
-    background-image: url('images/main.jpg'); /* Replace with your image */
-    background-size: cover; /* Ensures the image covers the whole wrapper */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgb(240 237 228); /* Fallback color */
-
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 50px rgba(0,0,0,0.13), 0 2px 12px rgba(0,0,0,0.07);
-    z-index: 0;
-  }
-
-  /* ===== Frame (White Block in the Center) ===== */
   .frame {
-    position: absolute;
-    /* The 'inset' controls the size of the white box. 
-       Decrease the numbers to make the white box bigger, increase to make it smaller. */
-    inset: 150px 150px; 
+    width: 52%;
+    height: 82%;
     border-radius: 12px;
-    background: #ffffff; /* Solid white block */
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Soft shadow to lift it off the background */
-    z-index: 0;
-    opacity: 0.75;
-    pointer-events: none;
+    background: rgba(255, 255, 255, 0.75); 
+    box-shadow: 0 8px 50px rgba(0,0,0,0.13);
+    position: relative;
+    margin-top: 0px;
   }
 
-    /* Outer Line */
+  /* Your Double Lines inside the fixed frame */
   .frame::before {
     content: "";
     position: absolute;
-    inset: 15px; /* 10px away from the white edge */
-    border: 3px solid #2a2a2a; /* Outer line color */
+    inset: 15px;
+    border: 3px solid #2a2a2a;
     border-radius: 8px;
-    opacity: 0.4; /* Makes the line subtle */
+    opacity: 0.3;
   }
 
-  /* Inner Line */
   .frame::after {
     content: "";
     position: absolute;
-    inset: 23px; /* 15px away from the white edge */
-    border: 2px solid #2a2a2a; /* Inner line is thinner */
+    inset: 23px;
+    border: 2px solid #2a2a2a;
     border-radius: 6px;
-    opacity: 0.4; /* Even more subtle */
+    opacity: 0.2;
   }
 
-
-  /* ===== Content ===== */
-  .content {
+  /* ===== Scrolling Content Wrappers ===== */
+  .invitation-wrapper {
+    width: 100%;
+    height: 100vh; /* Each section takes full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    z-index: 3;
+    z-index: 2; /* Sits on top of the fixed frame */
+    scroll-snap-align: start;
+  }
+
+  .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 58px 90px 72px;
-    min-height: 297mm;
+    padding: 20px;
+    max-width: 500px; /* Ensures text stays within the white box */
   }
 
-  
-  /* =========================== */
-  /*       1st Page Styles       */
-  /* =========================== */
-  /* Monogram */
-  .monogram {
-    /* font-family: 'Great Vibes', sans-serif; */
-    font-family: 'Great Vibes', cursive;
-    font-weight: 100;
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: #b73100;
-    margin-bottom: 0px;
-    margin-top: 0px;
-  }
+  /* --- Your Existing Text Styles --- */
+  .save-monogram { font-family: 'Great Vibes', cursive; font-size: 82px; color: #b73100; margin-bottom: 0px; margin-left: -160px;}
+  .the-monogram { font-family: 'Great Vibes', cursive; font-size: 82px; color: #b73100; margin-bottom: 0px; margin-left: -30px; margin-top: -20px;}
+  .date-monogram { font-family: 'Great Vibes', cursive; font-size: 82px; color: #b73100; margin-bottom: 0px; margin-left: 100px; margin-top: -50px;}
+  .monogram { font-family: 'Great Vibes', cursive; font-size: 22px; color: #b73100; margin-bottom: 20px; }
+  .name { font-family: 'Great Vibes', cursive; font-size: 70px; color: #b73100; line-height: 0.9; }
+  .and-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 30px; color: #b73100; }
+  .pre-title { font-family: 'Playfair', sans-serif; font-size: 14px; text-transform: uppercase; color: #b73100; margin-top: 20px; line-height: 1.6; }
+  .date-label { font-family: 'Playfair', sans-serif; font-size: 18px; color: #b73100; display: flex; align-items: center; margin-top: 25px; }
+  .data-label-big { font-weight: 600; font-size: 45px; padding: 0 10px; margin: 0 15px; border-left: 2px solid #2a2a2a; border-right: 2px solid #2a2a2a; }
+  .closing { font-family: 'Great Vibes', cursive; font-size: 24px; color: #b73100; margin-top: 30px; }
 
-  /* Divider */
-  .rule-short-up {
-    /* width: 150px;
-    height: 1.5px; */
-    background: #ccc;
-    margin-top: -20px;
-    margin-bottom: 76px;
-  }
-  .ornament-divider-1 {
-    /* margin: 38px auto; */
-    margin-bottom: 80px;
-    margin-top: px;
-  }
+  /* Page 2 Specifics */
+  .section-title { font-family: 'Playfair', sans-serif; text-transform: uppercase; color: #b73100; font-size: 16px; margin-top: 40px; }
+  .section-body { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: #555; margin-top: 10px; line-height: 1.4; }
 
-  /* Names */
-  .name {
-    font-family: 'Great Vibes', cursive;
-    font-size: 70px;
-    color: #b73100;
-    line-height: 0.9;
-    display: block;
-  }
-  .and-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 30px;
-    color: #b73100;
-    display: block;
-  }
-
-  /* Pre-title small caps */
-  .pre-title {
-    font-family: 'Playfair', sans-serif;
-    font-weight: 400; 
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #b73100;
-    margin-top: 31px;
-    width: 130%;            /* Forces the block to take up more horizontal space */
-    max-width: 600px;      /* Limits it so it doesn't hit the very edges of the frame */
-    margin-left: -40px;     /* Keeps it centered */
-    margin-right: auto;    /* Keeps it centered */
-    display: block;        /* Ensures width properties are respected */
-  }
-
-  .pre-title strong {
-    font-weight: 800;
-  }
-
-  /* Date */
-  .date-label {
-    font-family: 'Playfair', sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
-    font-weight: 200;
-    font-size: 18px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #b73100;
-    display: flex;
-    justify-content: center; 
-    align-items: center;    
-    margin-bottom: 5px;
-    margin-top: 30px;
-  }
-  
-  .data-label-big {
-    font-weight: 600;
-    font-size: 45px;
-    color: #b73100;
-    padding: 0 10px;
-    margin: 0 15px;
-    border-left: 2px solid #2a2a2a;
-    border-right: 2px solid #2a2a2a;
-  }
-
-  /* Divider */
-  .rule-short-down {
-    width: 150px;
-    height: 1.5px; 
-    /* background: #ccc; */
-    margin-top: 123px;
-    margin-bottom: 40px;
-
-  }
-  .ornament-divider-2 {
-    /* margin: 38px auto; */
-    margin-top: 128px;
-    margin-bottom: 14px;
-  }
-  
-  /* Closing */
-  .closing {
-    font-family: 'Great Vibes', cursive;
-    /* font-size: 30px; */
-    font-size: 22px;
-    /* color: #1e1e1e; */
-    color: #b73100;
-    line-height: 1.2;
-    letter-spacing: 2px;
-  }
-
-
-  /* =========================== */
-  /*       2st Page Styles       */
-  /* =========================== */
-  /* .rule-2 {
-    width: 180px;
-    height: 0.5px;
-    background: #ccc;
-    margin: 36px auto;
-  } */
-
-  .rule-short-2 {
-    width: 50px;
-    height: 0.5px;
-    background: #ccc;
-    margin: 10px auto;
-  }
-
-  .ornament-divider-3 {
-    /* margin: 38px auto; */
-    margin-bottom: 30px;
-    margin-top: 5px;
-  }
-
-  .section-title-2 {
-    font-family: 'Playfair', sans-serif;
-    font-weight: 400; 
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #b73100;
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
-  .section-body-2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 18.5px;
-    line-height: 1.5;
-    color: #555;
-    max-width: 360px;
-  }
-
-  .section-title-3 {
-    font-family: 'Playfair', sans-serif;
-    font-weight: 400; 
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #b73100;
-    margin-top: 50px;
-    margin-bottom: 0px;
-  }
-
-  .ornament-divider-4 {
-    /* margin: 38px auto; */
-    margin-top: 88px;
-    margin-bottom: 14px;
-  }
-
-
-  @media print {
-  body { background: none; margin: 0; padding: 0; }
-  .invitation-wrapper {
-    box-shadow: none;
-    width: 210mm;
-    height: 297mm;
-    min-height: unset;
-    margin: 0;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
-}
-
-  @media (prefers-reduced-motion: no-preference) {
-    .invitation-wrapper { animation: fadeIn 1s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  /* Responsive for mobile */
+  @media (max-width: 768px) {
+    .frame { width: 85%; height: 80%; }
+    .name { font-size: 50px; }
+    .data-label-big { font-size: 35px; }
   }
 </style>
 </head>
 <body>
 
-<div style="display: flex; flex-wrap: wrap">
-  <div class="invitation-wrapper">
+  <div class="fixed-frame-container">
+    <div class="frame"></div>
+  </div>
 
-    <div class="frame">
+  <div class="main-scroll-container">
 
+    <section class="invitation-wrapper">
       <div class="content">
+        
+        <div class="save-monogram">Save</div>
+        <div class="the-monogram">the</div>
+        <div class="date-monogram">date</div>
+        
+      </div>
+    </section>
+    
+    
 
+    <section class="invitation-wrapper">
+      <div class="content">
         <div class="monogram">Разом зі своїми родинами</div>
-
-        <!-- <div class="rule-short-up" ></div> -->
-
-        <!-- Ornamental divider -->
-        <div class="ornament-divider-1">
-          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        
+        <div style="margin-bottom: 40px;">
+          <svg width="150" height="12" viewBox="0 0 180 16" fill="none">
             <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
             <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
             <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
           </svg>
         </div>
 
-        <div>
-          <span class="name">Юлія</span>
-          <span class="and-text">та</span>
-          <span class="name">Дмитро</span>
-        </div>
+        <span class="name">Юлія</span>
+        <span class="and-text">та</span>
+        <span class="name">Дмитро</span>
 
-        <div class="pre-title">
-          З великим задоволенням запрошуємо вас<br>
+        <p class="pre-title">З великим задоволенням запрошуємо вас<br>
           завітати на наше весілля
-        </div>
+        </p>
 
         <div class="date-label">
           Неділя <span class="data-label-big">03</span> 05/2026
         </div>
 
-        <div class="pre-title">
-          <!-- Весільне святкування розпочинається <br> -->
+        <p class="pre-title">
           У ресторанному комплексі <strong>"ForestHouse"</strong><br>
           (Вулиця Нова, 4, c. Новосілка, Львівської обл.)<br>
           о <strong>14:00</strong> год.
-        </div>
-
-        <!-- <div class="rule-short-down"></div> -->
-
-        <!-- Ornamental divider -->
-        <div class="ornament-divider-2">
-          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
-            <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
-            <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
-          </svg>
-        </div>
+        </p>
 
         <div class="closing">Чекаємо на вас!</div>
-
       </div>
-    </div>
+    </section>
 
-  </div>
-
-  <div class="invitation-wrapper">
-
-    <div class="frame">
-
+    <section class="invitation-wrapper">
       <div class="content">
-
         <div class="monogram">Щоб свято було ідеальним</div>
 
-        <!-- Ornamental divider -->
-        <div class="ornament-divider-3">
-          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
-            <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
-            <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
-          </svg>
-        </div>
-
-        <!-- Dress Code -->
-        <div class="section-title-2">Дрес-код</div>
-        <div class="rule-short-2"></div>
-        <p class="section-body-2">
-             Ми хочемо, щоб цей день був комфортним для кожного. Суворого дрес-коду немає — головне, аби вам було зручно та святково. <br>
+        <div class="section-title">Дрес-код</div>
+        <p class="section-body">
+          Ми хочемо, щоб цей день був комфортним для кожного. Суворого дрес-коду немає — головне, аби вам було зручно та святково. <br>
           Для дам чудово підійдуть сукні чи елегантні костюми, а для чоловіків — штани з рубашкою, піджак за бажанням.
         </p>
 
-        <!-- Gifts -->
-        <div class="section-title-3">Замість квітів</div>
-        <div class="rule-short-2"></div>
-        <p class="section-body-2">
+        <div class="section-title">Замість квітів</div>
+        <p class="section-body">
           Ми щиро вдячні за кожну увагу. Замість букетів будемо раді отримати щось корисне для нашого спільного дому або памʼятний подарунок, який зігріватиме серце. Найкращий же подарунок — ваш настрій та усмішки!
         </p>
 
-        <!-- <div class="rule-2"></div> -->
-        <!-- Ornamental divider -->
-        <div class="ornament-divider-4">
-          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div style="margin-top: 50px;">
+          <svg width="150" height="12" viewBox="0 0 180 16" fill="none">
             <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
             <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
             <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
@@ -398,15 +196,10 @@
         </div>
 
         <div class="closing">З любов'ю,<br>Юлія та Дмитро</div>
-
       </div>
-
-      </div>
-    </div>
+    </section>
 
   </div>
-
-</div>
 
 </body>
 </html>
