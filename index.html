@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Весільне запрошення — Юлія & Дмитро</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap" rel="stylesheet">
+
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@100;200;300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  @page { size: A4 portrait; margin: 0; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #e9e7e1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  /* ===== Main Wrapper with Background Image ===== */
+  .invitation-wrapper {
+    width: 210mm;
+    min-height: 297mm;
+    
+    /* Image is now the main background */
+    background-image: url('images/main.jpg'); /* Replace with your image */
+    background-size: cover; /* Ensures the image covers the whole wrapper */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(240 237 228); /* Fallback color */
+
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 50px rgba(0,0,0,0.13), 0 2px 12px rgba(0,0,0,0.07);
+    z-index: 0;
+  }
+
+  /* ===== Frame (White Block in the Center) ===== */
+  .frame {
+    position: absolute;
+    /* The 'inset' controls the size of the white box. 
+       Decrease the numbers to make the white box bigger, increase to make it smaller. */
+    inset: 150px 150px; 
+    border-radius: 12px;
+    background: #ffffff; /* Solid white block */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Soft shadow to lift it off the background */
+    z-index: 0;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+    /* Outer Line */
+  .frame::before {
+    content: "";
+    position: absolute;
+    inset: 15px; /* 10px away from the white edge */
+    border: 3px solid #2a2a2a; /* Outer line color */
+    border-radius: 8px;
+    opacity: 0.4; /* Makes the line subtle */
+  }
+
+  /* Inner Line */
+  .frame::after {
+    content: "";
+    position: absolute;
+    inset: 23px; /* 15px away from the white edge */
+    border: 2px solid #2a2a2a; /* Inner line is thinner */
+    border-radius: 6px;
+    opacity: 0.4; /* Even more subtle */
+  }
+
+  /* ===== Branches ===== */
+  /* .branch-img {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    width: 620px;
+    height: auto;
+  }
+  .branch-top-left {
+    width: 600px;
+    top: -15px;
+    left: -15px;
+    transform: rotate(-5deg);
+  }
+  .branch-bottom-right {
+    width: 670px;
+    bottom: -10px;
+    right: -15px;
+    transform: rotate(175deg);
+  }
+  .branch-right {
+    width: 270px;
+    bottom: 50vh;
+    right: -15px;
+    transform: rotate(-125deg);
+    opacity: 0.4;
+  } */
+
+  /* ===== Content ===== */
+  .content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 58px 90px 72px;
+    min-height: 297mm;
+  }
+
+  /* Monogram */
+  .monogram {
+    /* font-family: 'Great Vibes', sans-serif; */
+    font-family: 'Great Vibes', cursive;
+    font-weight: 100;
+    font-size: 22px;
+    letter-spacing: 2px;
+    /* color: #2a2a2a; */
+    color: #b73100;
+    margin-bottom: 40px;
+    margin-top: 0px;
+  }
+
+  /* Divider */
+  .rule-short-up {
+    /* width: 150px;
+    height: 1.5px; */
+    background: #ccc;
+    /* margin: 28px auto; */
+    margin-top: -20px;
+    /* margin-bottom: 90px; */
+    margin-bottom: 76px;
+  }
+
+
+  /* Names */
+  .name {
+    font-family: 'Great Vibes', cursive;
+    /* font-size: 78px; */
+    font-size: 70px;
+    /* color: #1e1e1e; */
+    color: #b73100;
+    line-height: 0.9;
+    display: block;
+  }
+
+  .and-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    /* font-size: 40px; */
+    font-size: 30px;
+    /* color: #666; */
+    color: #b73100;
+    display: block;
+  }
+
+  /* Pre-title small caps */
+  .pre-title {
+    font-family: 'Playfair', sans-serif;
+    /* font-weight: 200; */
+    /* font-size: 14px; */
+    font-weight: 400; 
+    /* font-size: 16px; */
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    /* color: #888; */
+    color: #b73100;
+    /* line-height: 1.6; */
+    /* margin-top: 30px; */
+    margin-top: 31px;
+
+    /* --- Width Controls --- */
+    width: 130%;            /* Forces the block to take up more horizontal space */
+    max-width: 600px;      /* Limits it so it doesn't hit the very edges of the frame */
+    margin-left: -40px;     /* Keeps it centered */
+    margin-right: auto;    /* Keeps it centered */
+    display: block;        /* Ensures width properties are respected */
+  }
+
+  .pre-title strong {
+    font-weight: 800;
+  }
+
+  /* Date */
+  .date-label {
+    font-family: 'Playfair', sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    font-weight: 200;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    /* color: #2a2a2a; */
+    color: #b73100;
+    display: flex;
+    justify-content: center; /* Горизонтально */
+    align-items: center;     /* Вертикально */
+    margin-bottom: 5px;
+    margin-top: 30px;
+  }
+  
+  .data-label-big {
+    font-weight: 600;
+    font-size: 45px;
+    /* color: #2a2a2a; */
+    color: #b73100;
+    padding: 0 10px;
+    margin: 0 15px;
+    border-left: 2px solid #2a2a2a;
+    border-right: 2px solid #2a2a2a;
+  }
+
+  /* Divider */
+  .rule-short-down {
+    width: 150px;
+    height: 1.5px; 
+    /* background: #ccc; */
+    margin-top: 123px;
+    margin-bottom: 40px;
+
+    /* Image Properties */
+    
+    /* background-image: url('888-Photoroom.png');
+    background-size: contain;                    
+    background-position: center;                 
+    background-repeat: no-repeat;                
+    background-color: transparent;  */
+
+  }
+  
+  
+  /* Closing */
+  .closing {
+    font-family: 'Great Vibes', cursive;
+    /* font-size: 30px; */
+    font-size: 22px;
+    /* color: #1e1e1e; */
+    color: #b73100;
+    line-height: 1.2;
+    letter-spacing: 2px;
+  }
+
+  @media print {
+    body { background: none; margin: 0; padding: 0; }
+    .invitation-wrapper {
+      box-shadow: none;
+      width: 210mm;
+      height: 297mm;
+      min-height: unset;
+      margin: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .invitation-wrapper { animation: fadeIn 1s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<div class="invitation-wrapper">
+
+  <div class="frame">
+
+    <div class="content">
+
+      <div class="monogram">Разом зі своїми родинами</div>
+
+      <div class="rule-short-up" ></div>
+
+      <div>
+        <span class="name">Юлія</span>
+        <span class="and-text">та</span>
+        <span class="name">Дмитро</span>
+      </div>
+
+      <div class="pre-title">
+        З великим задоволенням запрошуємо вас<br>
+        завітати на наше весілля
+      </div>
+
+      <div class="date-label">
+        Неділя <span class="data-label-big">03</span> 05/2026
+      </div>
+
+      <div class="pre-title">
+        <!-- Весільне святкування розпочинається <br> -->
+        У ресторанному комплексі <strong>"ForestHouse"</strong><br>
+        (Вулиця Нова, 4, c. Новосілка, Львівської обл.)<br>
+        о <strong>14:00</strong> год.
+      </div>
+
+      <div class="rule-short-down"></div>
+
+      <div class="closing">Чекаємо на вас!</div>
+
+    </div>
+  </div>
+  <!-- <img class="branch-img branch-top-left"
+       src="Gemini_Generated_Image_klwqrlklwqrlklwq.png"
+       alt=""> -->
+
+  <!-- <img class="branch-img branch-bottom-right"
+    src="1.png"
+    style="width: 581px; bottom: -267px; right: -101px; transform: rotate(58deg);"
+    alt="">
+
+  <img class="branch-img branch-left-middle"
+    src="1.png"
+    style="width: 600px; top: 55px; left: -15px; transform: rotate(-5deg); opacity: 0.5;"
+    alt=""> -->
+
+  
+
+</div>
+
+</body>
+</html>
