@@ -89,6 +89,10 @@
     min-height: 297mm;
   }
 
+  
+  /* =========================== */
+  /*       1st Page Styles       */
+  /* =========================== */
   /* Monogram */
   .monogram {
     /* font-family: 'Great Vibes', sans-serif; */
@@ -97,7 +101,7 @@
     font-size: 22px;
     letter-spacing: 2px;
     color: #b73100;
-    margin-bottom: 40px;
+    margin-bottom: 0px;
     margin-top: 0px;
   }
 
@@ -107,29 +111,27 @@
     height: 1.5px; */
     background: #ccc;
     margin-top: -20px;
-    /* margin-bottom: 90px; */
     margin-bottom: 76px;
   }
-
+  .ornament-divider-1 {
+    /* margin: 38px auto; */
+    margin-bottom: 80px;
+    margin-top: px;
+  }
 
   /* Names */
   .name {
     font-family: 'Great Vibes', cursive;
-    /* font-size: 78px; */
     font-size: 70px;
-    /* color: #1e1e1e; */
     color: #b73100;
     line-height: 0.9;
     display: block;
   }
-
   .and-text {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
     font-style: italic;
-    /* font-size: 40px; */
     font-size: 30px;
-    /* color: #666; */
     color: #b73100;
     display: block;
   }
@@ -137,20 +139,12 @@
   /* Pre-title small caps */
   .pre-title {
     font-family: 'Playfair', sans-serif;
-    /* font-weight: 200; */
-    /* font-size: 14px; */
     font-weight: 400; 
-    /* font-size: 16px; */
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    /* color: #888; */
     color: #b73100;
-    /* line-height: 1.6; */
-    /* margin-top: 30px; */
     margin-top: 31px;
-
-    /* --- Width Controls --- */
     width: 130%;            /* Forces the block to take up more horizontal space */
     max-width: 600px;      /* Limits it so it doesn't hit the very edges of the frame */
     margin-left: -40px;     /* Keeps it centered */
@@ -172,7 +166,6 @@
     font-size: 18px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    /* color: #2a2a2a; */
     color: #b73100;
     display: flex;
     justify-content: center; 
@@ -184,7 +177,6 @@
   .data-label-big {
     font-weight: 600;
     font-size: 45px;
-    /* color: #2a2a2a; */
     color: #b73100;
     padding: 0 10px;
     margin: 0 15px;
@@ -201,7 +193,11 @@
     margin-bottom: 40px;
 
   }
-  
+  .ornament-divider-2 {
+    /* margin: 38px auto; */
+    margin-top: 128px;
+    margin-bottom: 14px;
+  }
   
   /* Closing */
   .closing {
@@ -214,16 +210,82 @@
     letter-spacing: 2px;
   }
 
-  @media print {
-    body { background: none; margin: 0; padding: 0; }
-    .invitation-wrapper {
-      box-shadow: none;
-      width: 210mm;
-      height: 297mm;
-      min-height: unset;
-      margin: 0;
-    }
+
+  /* =========================== */
+  /*       2st Page Styles       */
+  /* =========================== */
+  /* .rule-2 {
+    width: 180px;
+    height: 0.5px;
+    background: #ccc;
+    margin: 36px auto;
+  } */
+
+  .rule-short-2 {
+    width: 50px;
+    height: 0.5px;
+    background: #ccc;
+    margin: 10px auto;
   }
+
+  .ornament-divider-3 {
+    /* margin: 38px auto; */
+    margin-bottom: 30px;
+    margin-top: 5px;
+  }
+
+  .section-title-2 {
+    font-family: 'Playfair', sans-serif;
+    font-weight: 400; 
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #b73100;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .section-body-2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 18.5px;
+    line-height: 1.5;
+    color: #555;
+    max-width: 360px;
+  }
+
+  .section-title-3 {
+    font-family: 'Playfair', sans-serif;
+    font-weight: 400; 
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #b73100;
+    margin-top: 50px;
+    margin-bottom: 0px;
+  }
+
+  .ornament-divider-4 {
+    /* margin: 38px auto; */
+    margin-top: 88px;
+    margin-bottom: 14px;
+  }
+
+
+  @media print {
+  body { background: none; margin: 0; padding: 0; }
+  .invitation-wrapper {
+    box-shadow: none;
+    width: 210mm;
+    height: 297mm;
+    min-height: unset;
+    margin: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
 
   @media (prefers-reduced-motion: no-preference) {
     .invitation-wrapper { animation: fadeIn 1s ease; }
@@ -232,43 +294,116 @@
 </style>
 </head>
 <body>
-<div class="invitation-wrapper">
 
-  <div class="frame">
+<div style="display: flex; flex-wrap: wrap">
+  <div class="invitation-wrapper">
 
-    <div class="content">
+    <div class="frame">
 
-      <div class="monogram">Разом зі своїми родинами</div>
+      <div class="content">
 
-      <div class="rule-short-up" ></div>
+        <div class="monogram">Разом зі своїми родинами</div>
 
-      <div>
-        <span class="name">Юлія</span>
-        <span class="and-text">та</span>
-        <span class="name">Дмитро</span>
+        <!-- <div class="rule-short-up" ></div> -->
+
+        <!-- Ornamental divider -->
+        <div class="ornament-divider-1">
+          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
+            <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
+            <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <div>
+          <span class="name">Юлія</span>
+          <span class="and-text">та</span>
+          <span class="name">Дмитро</span>
+        </div>
+
+        <div class="pre-title">
+          З великим задоволенням запрошуємо вас<br>
+          завітати на наше весілля
+        </div>
+
+        <div class="date-label">
+          Неділя <span class="data-label-big">03</span> 05/2026
+        </div>
+
+        <div class="pre-title">
+          <!-- Весільне святкування розпочинається <br> -->
+          У ресторанному комплексі <strong>"ForestHouse"</strong><br>
+          (Вулиця Нова, 4, c. Новосілка, Львівської обл.)<br>
+          о <strong>14:00</strong> год.
+        </div>
+
+        <!-- <div class="rule-short-down"></div> -->
+
+        <!-- Ornamental divider -->
+        <div class="ornament-divider-2">
+          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
+            <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
+            <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <div class="closing">Чекаємо на вас!</div>
+
       </div>
-
-      <div class="pre-title">
-        З великим задоволенням запрошуємо вас<br>
-        завітати на наше весілля
-      </div>
-
-      <div class="date-label">
-        Неділя <span class="data-label-big">03</span> 05/2026
-      </div>
-
-      <div class="pre-title">
-        <!-- Весільне святкування розпочинається <br> -->
-        У ресторанному комплексі <strong>"ForestHouse"</strong><br>
-        (Вулиця Нова, 4, c. Новосілка, Львівської обл.)<br>
-        о <strong>14:00</strong> год.
-      </div>
-
-      <div class="rule-short-down"></div>
-
-      <div class="closing">Чекаємо на вас!</div>
-
     </div>
+
+  </div>
+
+  <div class="invitation-wrapper">
+
+    <div class="frame">
+
+      <div class="content">
+
+        <div class="monogram">Щоб свято було ідеальним</div>
+
+        <!-- Ornamental divider -->
+        <div class="ornament-divider-3">
+          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
+            <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
+            <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <!-- Dress Code -->
+        <div class="section-title-2">Дрес-код</div>
+        <div class="rule-short-2"></div>
+        <p class="section-body-2">
+             Ми хочемо, щоб цей день був комфортним для кожного. Суворого дрес-коду немає — головне, аби вам було зручно та святково. <br>
+          Для дам чудово підійдуть сукні чи елегантні костюми, а для чоловіків — штани з рубашкою, піджак за бажанням.
+        </p>
+
+        <!-- Gifts -->
+        <div class="section-title-3">Замість квітів</div>
+        <div class="rule-short-2"></div>
+        <p class="section-body-2">
+          Ми щиро вдячні за кожну увагу. Замість букетів будемо раді отримати щось корисне для нашого спільного дому або памʼятний подарунок, який зігріватиме серце. Найкращий же подарунок — ваш настрій та усмішки!
+        </p>
+
+        <!-- <div class="rule-2"></div> -->
+        <!-- Ornamental divider -->
+        <div class="ornament-divider-4">
+          <svg width="180" height="16" viewBox="0 0 180 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="8" x2="78" y2="8" stroke="#ccc" stroke-width="0.5"/>
+            <polygon points="90,2 97,8 90,14 83,8" fill="none" stroke="#bbb" stroke-width="0.8"/>
+            <line x1="102" y1="8" x2="180" y2="8" stroke="#ccc" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <div class="closing">З любов'ю,<br>Юлія та Дмитро</div>
+
+      </div>
+
+      </div>
+    </div>
+
   </div>
 
 </div>
